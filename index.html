@@ -5,15 +5,12 @@
   <title>Taggbox Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- AUCUNE importation de police -->
-  <!-- AUCUN style global de police -->
-
   <style>
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
-      background: white;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     .taggbox {
@@ -25,13 +22,6 @@
 
     .taggbox::-webkit-scrollbar {
       display: none;
-    }
-
-    /* Force à ne PAS hériter de polices extérieures */
-    .taggbox * {
-      all: unset;
-      font-family: inherit !important;
-      display: revert;
     }
   </style>
 </head>
