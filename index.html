@@ -20,14 +20,27 @@
       -ms-overflow-style: none;
     }
 
-    .taggbox * {
-      font-size: 14px !important; /* ✅ taille appliquée aux éléments internes */
-    }
-
     .taggbox::-webkit-scrollbar {
       display: none;
     }
   </style>
 </head>
 <body>
-  <div class="taggbox" data-widget-id="287597" website="1"><
+  <div class="taggbox" data-widget-id="287597" website="1"></div>
+  <script src="https://widget.taggbox.com/embed.min.js" type="text/javascript"></script>
+
+  <script>
+    function sendHeight() {
+      const height = document.body.scrollHeight;
+      parent.postMessage({ type: "adjustHeight", height: height }, "*");
+    }
+
+    window.addEventListener("load", () => {
+      sendHeight();
+      setTimeout(sendHeight, 2000);
+    });
+
+    window.addEventListener("resize", sendHeight);
+  </script>
+</body>
+</html>
