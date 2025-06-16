@@ -5,15 +5,17 @@
   <title>Taggbox Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- AUCUNE importation de police -->
+  <!-- AUCUN style global de police -->
+
   <style>
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
-      /* ❌ NE PAS forcer de font-family ici */
+      background: white;
     }
 
-    /* Important : ne pas propager Open Sans au widget */
     .taggbox {
       width: 100%;
       overflow: auto;
@@ -25,9 +27,11 @@
       display: none;
     }
 
-    /* Protection : désactive toute surcharge Open Sans */
+    /* Force à ne PAS hériter de polices extérieures */
     .taggbox * {
+      all: unset;
       font-family: inherit !important;
+      display: revert;
     }
   </style>
 </head>
