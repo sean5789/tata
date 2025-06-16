@@ -10,17 +10,24 @@
       margin: 0;
       padding: 0;
       width: 100%;
+      /* ❌ NE PAS forcer de font-family ici */
     }
 
+    /* Important : ne pas propager Open Sans au widget */
     .taggbox {
       width: 100%;
       overflow: auto;
-      scrollbar-width: none;          /* Masquer scrollbar Firefox */
-      -ms-overflow-style: none;       /* Masquer scrollbar IE/Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     .taggbox::-webkit-scrollbar {
-      display: none;                  /* Masquer scrollbar Chrome/Safari */
+      display: none;
+    }
+
+    /* Protection : désactive toute surcharge Open Sans */
+    .taggbox * {
+      font-family: inherit !important;
     }
   </style>
 </head>
@@ -29,7 +36,6 @@
   <script src="https://widget.taggbox.com/embed.min.js" type="text/javascript"></script>
 
   <script>
-    // Envoie de la hauteur réelle à Bubble
     function sendHeight() {
       const height = document.body.scrollHeight;
       parent.postMessage({ type: "adjustHeight", height: height }, "*");
@@ -37,8 +43,10 @@
 
     window.addEventListener("load", () => {
       sendHeight();
-      setTimeout(sendHeight, 2000); // Deuxième mesure après chargement
+      setTimeout(sendHeight, 2000);
     });
 
     window.addEventListener("resize", sendHeight);
   </script>
+</body>
+</html>
