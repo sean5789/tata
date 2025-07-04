@@ -32,7 +32,7 @@
 </head>
 <body>
 
-  <!-- Widget EmbedSocial -->
+  <!-- Conteneur EmbedSocial -->
   <div class="embedsocial-hashtag" data-ref="2b7c1281f1c03b9704c1857b382fc1d5ce7a749c"></div>
 
   <!-- Chargement du widget -->
@@ -46,7 +46,7 @@
     }(document, "script", "EmbedSocialHashtagScript"));
   </script>
 
-  <!-- Ajustement dynamique de la hauteur avec MutationObserver -->
+  <!-- Hauteur dynamique vers Bubble avec MutationObserver -->
   <script>
     function sendHeight() {
       const height = document.body.scrollHeight;
@@ -56,14 +56,13 @@
     window.addEventListener("resize", sendHeight);
 
     window.addEventListener("load", () => {
-      // Sécurité au cas où aucun changement n'est détecté
-      setTimeout(sendHeight, 3000);
+      // Envoi de la hauteur après 4.5s pour laisser le temps à EmbedSocial
+      setTimeout(sendHeight, 4500);
 
-      // Observer les changements du widget (ajout dynamique)
       const target = document.querySelector(".embedsocial-hashtag");
       if (target) {
         const observer = new MutationObserver(() => {
-          sendHeight();
+          sendHeight(); // Recalcule à chaque changement
         });
 
         observer.observe(target, {
