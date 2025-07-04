@@ -5,7 +5,7 @@
   <title>EmbedSocial Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Optimisation réseau -->
+  <!-- Pré-connexion à EmbedSocial pour charger plus vite -->
   <link rel="preconnect" href="https://embedsocial.com">
   <link rel="dns-prefetch" href="https://embedsocial.com">
 
@@ -32,10 +32,10 @@
 </head>
 <body>
 
-  <!-- Conteneur EmbedSocial -->
+  <!-- Zone EmbedSocial -->
   <div class="embedsocial-hashtag" data-ref="2b7c1281f1c03b9704c1857b382fc1d5ce7a749c"></div>
 
-  <!-- Chargement du widget -->
+  <!-- Script de chargement du widget -->
   <script>
     (function(d, s, id) {
       if (d.getElementById(id)) return;
@@ -46,7 +46,7 @@
     }(document, "script", "EmbedSocialHashtagScript"));
   </script>
 
-  <!-- Hauteur dynamique vers Bubble avec MutationObserver -->
+  <!-- Script pour ajuster la hauteur + signal READY -->
   <script>
     function sendHeight() {
       const height = document.body.scrollHeight;
@@ -56,13 +56,13 @@
     window.addEventListener("resize", sendHeight);
 
     window.addEventListener("load", () => {
-      // Envoi de la hauteur après 4.5s pour laisser le temps à EmbedSocial
+      // Délai de base pour laisser le widget se construire
       setTimeout(sendHeight, 4500);
 
       const target = document.querySelector(".embedsocial-hashtag");
       if (target) {
         const observer = new MutationObserver(() => {
-          sendHeight(); // Recalcule à chaque changement
+          sendHeight();
         });
 
         observer.observe(target, {
@@ -70,6 +70,11 @@
           subtree: true
         });
       }
+
+      // ✅ Envoie un message "ready" à Bubble après 5s pour affichage propre
+      setTimeout(() => {
+        parent.postMessage({ type: "ready" }, "*");
+      }, 5000);
     });
   </script>
 
