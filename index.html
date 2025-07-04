@@ -5,6 +5,13 @@
   <title>EmbedSocial Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- SEO & Performances -->
+  <meta name="description" content="Témoignages clients affichés dynamiquement.">
+  <meta name="robots" content="noindex"> <!-- Enlève si tu veux le référencer -->
+  <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://embedsocial.com">
+
   <style>
     html, body {
       margin: 0;
@@ -26,32 +33,34 @@
   </style>
 </head>
 <body>
+
   <!-- Ton widget EmbedSocial -->
   <div class="embedsocial-hashtag" data-ref="2b7c1281f1c03b9704c1857b382fc1d5ce7a749c"></div> 
+
+  <!-- Script du widget -->
   <script>
     (function(d, s, id) {
-      var js;
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
+      if (d.getElementById(id)) return;
+      var js = d.createElement(s); js.id = id;
       js.src = "https://embedsocial.com/cdn/ht.js";
       d.getElementsByTagName("head")[0].appendChild(js);
     }(document, "script", "EmbedSocialHashtagScript"));
   </script>
 
-  <!-- Script pour envoyer la hauteur à Bubble -->
+  <!-- Ajustement automatique de la hauteur dans Bubble -->
   <script>
     function sendHeight() {
       const height = document.body.scrollHeight;
       parent.postMessage({ type: "adjustHeight", height: height }, "*");
     }
 
-    // Quand le widget est chargé
     window.addEventListener("load", () => {
       sendHeight();
-      setTimeout(sendHeight, 2000); // recalcule après chargement dynamique
+      setTimeout(sendHeight, 2000); // en cas de chargement progressif
     });
 
     window.addEventListener("resize", sendHeight);
   </script>
+
 </body>
 </html>
