@@ -39,42 +39,29 @@
   <script>
     (function(d, s, id) {
       if (d.getElementById(id)) return;
-      var js = d.createElement(s);
+      const js = d.createElement(s);
       js.id = id;
       js.src = "https://embedsocial.com/cdn/ht.js";
       d.getElementsByTagName("head")[0].appendChild(js);
-    }(document, "script", "EmbedSocialHashtagScript"));
+    })(document, "script", "EmbedSocialHashtagScript");
   </script>
 
-  <!-- Script pour ajuster la hauteur + signal READY -->
+  <!-- Script pour ajuster la hauteur en continu -->
   <script>
     function sendHeight() {
       const height = document.body.scrollHeight;
-      parent.postMessage({ type: "adjustHeight", height: height }, "*");
+      parent.postMessage({ type: "adjustHeight", height }, "*");
     }
 
     window.addEventListener("resize", sendHeight);
-
     window.addEventListener("load", () => {
-      // Délai de base pour laisser le widget se construire
-      setTimeout(sendHeight, 4500);
+      sendHeight(); // 🚀 Envoie immédiat
 
       const target = document.querySelector(".embedsocial-hashtag");
       if (target) {
-        const observer = new MutationObserver(() => {
-          sendHeight();
-        });
-
-        observer.observe(target, {
-          childList: true,
-          subtree: true
-        });
+        const observer = new MutationObserver(sendHeight);
+        observer.observe(target, { childList: true, subtree: true });
       }
-
-      // ✅ Envoie un message "ready" à Bubble après 5s pour affichage propre
-      setTimeout(() => {
-        parent.postMessage({ type: "ready" }, "*");
-      }, 5000);
     });
   </script>
 
