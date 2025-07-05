@@ -5,9 +5,10 @@
   <title>EmbedSocial Widget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Pré-connexion à EmbedSocial pour charger plus vite -->
+  <!-- Optimisations pour EmbedSocial -->
   <link rel="preconnect" href="https://embedsocial.com">
   <link rel="dns-prefetch" href="https://embedsocial.com">
+  <link rel="preload" href="https://embedsocial.com/cdn/ht.js" as="script">
 
   <style>
     html, body {
@@ -33,9 +34,8 @@
 <body>
 
   <!-- Zone EmbedSocial -->
-  <div class="embedsocial-hashtag" data-ref="2b7c1281f1c03b9704c1857b382fc1d5ce7a749c"></div>
+  <div class="embedsocial-hashtag" data-ref="TON_WIDGET_ID_ICI"></div>
 
-  <!-- Script de chargement du widget -->
   <script>
     (function(d, s, id) {
       if (d.getElementById(id)) return;
@@ -44,25 +44,20 @@
       js.src = "https://embedsocial.com/cdn/ht.js";
       d.getElementsByTagName("head")[0].appendChild(js);
     })(document, "script", "EmbedSocialHashtagScript");
-  </script>
 
-  <!-- Script pour ajuster la hauteur en continu -->
-  <script>
     function sendHeight() {
       const height = document.body.scrollHeight;
       parent.postMessage({ type: "adjustHeight", height }, "*");
     }
 
+    window.addEventListener("load", sendHeight);
     window.addEventListener("resize", sendHeight);
-    window.addEventListener("load", () => {
-      sendHeight(); // 🚀 Envoie immédiat
 
-      const target = document.querySelector(".embedsocial-hashtag");
-      if (target) {
-        const observer = new MutationObserver(sendHeight);
-        observer.observe(target, { childList: true, subtree: true });
-      }
-    });
+    const target = document.querySelector(".embedsocial-hashtag");
+    if (target) {
+      const observer = new MutationObserver(sendHeight);
+      observer.observe(target, { childList: true, subtree: true });
+    }
   </script>
 
 </body>
